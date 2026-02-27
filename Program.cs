@@ -8,8 +8,7 @@ class Program
 
         while (!kilepes)
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("╔═══════════════════════════════════════════════════╗");
             Console.WriteLine("║            MOZI NYILVÁNTARTÓ RENDSZER             ║");
             Console.WriteLine("╚═══════════════════════════════════════════════════╝");
@@ -28,7 +27,7 @@ class Program
             for (int i = 0; i < menu.Length; i++)
             {
                 Console.Write("  [");
-                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write(i + 1);
                 Console.ResetColor();
                 Console.WriteLine($"] {menu[i]}");
@@ -60,7 +59,7 @@ class Program
 
     static void Kilepes()
     {
-        Console.WriteLine("Nyomjon meg egy billentyűt...");
+        Console.WriteLine("Nyomjon meg egy billentyűt a kilépéshez");
         Console.ReadKey();
     }
 }
