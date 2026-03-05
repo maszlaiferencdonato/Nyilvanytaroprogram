@@ -29,7 +29,7 @@ class Program
             Console.WriteLine("║            MOZI NYILVÁNTARTÓ RENDSZER             ║");
             Console.WriteLine("╚═══════════════════════════════════════════════════╝");
             Console.ResetColor();
-            Console.WriteLine($"\n   Jelenleg {moziMusor.Count} film van az adatbázisban.");
+            Console.WriteLine($"  Jelenleg {moziMusor.Count} film van az adatbázisban.");
             Console.WriteLine("  " + new string('-', 49));
 
             string[] menu = {
@@ -49,7 +49,7 @@ class Program
                 Console.WriteLine($"] {menu[i]}");
             }
             Console.WriteLine("  " + new string('-', 49));
-            Console.Write("\nVálasszon menüpontot: ");
+            Console.Write("  Válasszon menüpontot: ");
 
             string valasztas = Console.ReadLine();
 
@@ -61,15 +61,17 @@ class Program
                 case "2":
                     UjFilmHozzaadasa(moziMusor);
                     break;
+                case "3":FilmTorlese();
+                    break;
                 case "5":
-                    Console.WriteLine("\nSikeres mentés!");
-                    Console.WriteLine("\nNyomjon egy gombot a továbblépéshez...");
+                    Console.WriteLine("  Sikeres mentés!");
+                    Console.WriteLine("  Nyomjon egy gombot a továbblépéshez...");
                     Console.ReadKey();
                     kilepes = true;
                     break;
                 default:
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("\nÉrvénytelen menüpont!");
+                    Console.WriteLine("  Érvénytelen menüpont!");
                     Kilepes();
                     break;
             }
@@ -79,7 +81,7 @@ class Program
     static void Kilepes()
     {
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Nyomjon meg egy billentyűt a kilépéshez");
+        Console.WriteLine("  Nyomjon meg egy billentyűt a kilépéshez");
         Console.ReadKey();
         Console.Clear();
     }
@@ -93,18 +95,18 @@ class Program
         Console.WriteLine("╚═══════════════════════════════════════════════════╝");
         Console.ResetColor();
 
-        Console.Write("\nFilm címe: ");
+        Console.Write("  Film címe: ");
         string cim = Console.ReadLine();
 
-        Console.Write("\nMűfaj: ");
+        Console.Write("  Műfaj: ");
         string mufaj = Console.ReadLine();
 
-        int hossz = BeolvasSzamot("\nHossz (perc): ", 1, 500);
-        int korhatar = BeolvasSzamot("\nKorhatár: ", 0, 18);
+        int hossz = BeolvasSzamot("  Hossz (perc): ", 1, 500);
+        int korhatar = BeolvasSzamot("  Korhatár: ", 0, 18);
 
         lista.Add(new Film(cim, mufaj, hossz, korhatar));
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("\nSikeresen mentve! Nyomj egy gombot a menübe lépéshez");
+        Console.WriteLine("  Sikeresen mentve! Nyomj egy gombot a menübe lépéshez");
         Console.ReadKey();
         Console.Clear();
     }
@@ -122,7 +124,7 @@ class Program
                 return vizsgaltSzam;
             }
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"\nHiba! Kérem egy számot adjon meg {min} és {max} között!");
+            Console.WriteLine($"  Hiba! Kérem egy számot adjon meg {min} és {max} között!");
             Console.ResetColor();
         }
     }
@@ -138,19 +140,35 @@ class Program
 
         if (moziMusor.Count == 0)
         {
-            Console.WriteLine("\nA lista még üres.");
+            Console.WriteLine("  A lista még üres.");
         }
         else
         {
-            foreach (var f in moziMusor)
+            for (int i = 0; i < moziMusor.Count; i++)
             {
-                Console.WriteLine($"\n- {f.Cim} | {f.Mufaj} | {f.Hossz} perc | {f.Korhatar}+");
+                Console.WriteLine($"  {i + 1}. | {moziMusor[i].Cim} | {moziMusor[i].Mufaj} | {moziMusor[i].Hossz} perc | {moziMusor[i].Korhatar}+");
             }
         }
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("\nNyomj egy gombot a menübe lépéshez");
+        Console.WriteLine("  Nyomj egy gombot a menübe lépéshez");
         Console.ReadKey();
         Console.Clear();
         
+    }
+
+    static void FilmTorlese()
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("╔═══════════════════════════════════════════════════╗");
+        Console.WriteLine("║                  Film törlése                     ║");
+        Console.WriteLine("╚═══════════════════════════════════════════════════╝");
+        Console.ResetColor();
+        
+        if (moziMusor.Count == 0)
+        {
+            Console.WriteLine("  A lista még üres.");
+        }
+
     }
 }
