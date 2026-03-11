@@ -18,6 +18,7 @@ public class Film
 class Program
 {
     static List<Film> moziMusor = new List<Film>();
+    static string[] mufajok = { "Akció", "Vígjáték", "Dráma", "Sci-fi", "Horror", "Kaland", "Animáció", "Thriller" };
     static void Main(string[] args)
     {
         bool kilepes = false;
@@ -98,8 +99,7 @@ class Program
         Console.Write("  Film címe: ");
         string cim = Console.ReadLine();
 
-        Console.Write("  Műfaj: ");
-        string mufaj = Console.ReadLine();
+        string mufaj = MufajValaszto();
 
         int hossz = BeolvasSzamot("  Hossz (perc): ", 1, 500);
         int korhatar = BeolvasSzamot("  Korhatár: ", 0, 18);
@@ -124,9 +124,24 @@ class Program
                 return vizsgaltSzam;
             }
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"  Hiba! Kérem egy számot adjon meg {min} és {max} között!");
+            Console.WriteLine($"  Kérem a megadott szám {min} és {max} között legyen!");
             Console.ResetColor();
         }
+    }
+
+    static string MufajValaszto()
+    {
+        Console.WriteLine("  Válasszon műfajt az alábbiak közül:");
+        for (int i = 0; i < mufajok.Length; i++)
+        {
+            Console.Write("    [");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(i + 1);
+            Console.ResetColor();
+            Console.WriteLine($"] {mufajok[i]}");
+        }
+        int valasztas = BeolvasSzamot("  Választott műfaj sorszáma: ", 1, mufajok.Length);
+        return mufajok[valasztas - 1];
     }
 
     static void Listazas()
@@ -146,7 +161,7 @@ class Program
         {
             for (int i = 0; i < moziMusor.Count; i++)
             {
-                Console.WriteLine($"  {i + 1}. | Cím: {moziMusor[i].Cim} | Műfaj: {moziMusor[i].Mufaj} |{moziMusor[i].Hossz} perc | Korhatár: {moziMusor[i].Korhatar}+");
+                Console.WriteLine($"  {i + 1}. | Cím: {moziMusor[i].Cim} | Műfaj: {moziMusor[i].Mufaj} | {moziMusor[i].Hossz} perc | Korhatár: {moziMusor[i].Korhatar}+");
             }
         }
         Console.ForegroundColor = ConsoleColor.Green;
@@ -167,13 +182,19 @@ class Program
 
         if (moziMusor.Count == 0)
         {
-            Console.WriteLine("  A lista még üres.");
+            Console.WriteLine("  Nincs törölhető film.");
         }
         else
-        {
+        {   Console.WriteLine("  Törölhető filmek:");
+            Console.WriteLine("");
             for (int i = 0; i < moziMusor.Count; i++)
             {
-                Console.WriteLine($"  [{i + 1}] {moziMusor[i].Cim}");
+
+                Console.Write("    [");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(i + 1);
+                Console.ResetColor();
+                Console.WriteLine($"] {moziMusor[i].Cim}");
             }
             Console.WriteLine("  " + new string('-', 49));
 
