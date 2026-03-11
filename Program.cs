@@ -146,7 +146,7 @@ class Program
         {
             for (int i = 0; i < moziMusor.Count; i++)
             {
-                Console.WriteLine($"  {i + 1}. | {moziMusor[i].Cim} | {moziMusor[i].Mufaj} | {moziMusor[i].Hossz} perc | {moziMusor[i].Korhatar}+");
+                Console.WriteLine($"  {i + 1}. | Cím: {moziMusor[i].Cim} | Műfaj: {moziMusor[i].Mufaj} |{moziMusor[i].Hossz} perc | Korhatár: {moziMusor[i].Korhatar}+");
             }
         }
         Console.ForegroundColor = ConsoleColor.Green;
@@ -164,11 +164,34 @@ class Program
         Console.WriteLine("║                  Film törlése                     ║");
         Console.WriteLine("╚═══════════════════════════════════════════════════╝");
         Console.ResetColor();
-        
+
         if (moziMusor.Count == 0)
         {
             Console.WriteLine("  A lista még üres.");
         }
+        else
+        {
+            for (int i = 0; i < moziMusor.Count; i++)
+            {
+                Console.WriteLine($"  [{i + 1}] {moziMusor[i].Cim}");
+            }
+            Console.WriteLine("  " + new string('-', 49));
 
+            int index = BeolvasSzamot("  Adja meg a törlendő film sorszámát: ", 1, moziMusor.Count);
+
+            string torlendoCim = moziMusor[index - 1].Cim;
+            moziMusor.RemoveAt(index - 1);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\n  '{torlendoCim}' sikeresen törölve!");
+        }
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("\n  Nyomj egy gombot a menübe lépéshez");
+        Console.ReadKey();
+        Console.Clear();
     }
 }
+
+    
+
