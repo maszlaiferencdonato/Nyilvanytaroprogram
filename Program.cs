@@ -37,7 +37,7 @@ class Program
                 "Filmek listázása",
                 "Új film felvétele",
                 "Film törlése",
-                "Statisztikák",
+                "Filmek szűrése",
                 "Mentés és Kilépés"
             };
 
@@ -63,6 +63,8 @@ class Program
                     UjFilmHozzaadasa(moziMusor);
                     break;
                 case "3":FilmTorlese();
+                    break;
+                case "4": Szures();
                     break;
                 case "5":
                     Console.WriteLine("  Sikeres mentés!");
@@ -212,7 +214,22 @@ class Program
         Console.ReadKey();
         Console.Clear();
     }
-}
+
+        static void Szures()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("╔═══════════════════════════════════════════════════╗");
+            Console.WriteLine("║                  Filmek szűrése                   ║");
+            Console.WriteLine("╚═══════════════════════════════════════════════════╝");
+            Console.ResetColor();
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("  Nyomj egy gombot a menübe lépéshez");
+            Console.ReadKey();
+            Console.Clear();
+        }   
+    }
 
     
 
