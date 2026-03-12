@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IO
 public class Film
 {
     public string Cim { get; set; }
@@ -276,6 +277,7 @@ class Program
 
     }
 }
+
 
 
 
