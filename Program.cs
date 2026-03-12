@@ -24,6 +24,7 @@ class Program
     static List<string> ujMufaj = new List<string>();
     static void Main(string[] args)
     {
+        Betoltes();
         bool kilepes = false;
 
         while (!kilepes)
@@ -72,7 +73,7 @@ class Program
                     Szures();
                     break;
                 case "5":
-                    FajlbeMentes();
+                    FajlbaMentes();
                     Console.WriteLine("  Sikeres mentés!");
                     Console.WriteLine("  Nyomjon egy gombot a továbblépéshez...");
                     Console.ReadKey();
@@ -319,6 +320,7 @@ class Program
     }
     
 }
+
 
 
 
