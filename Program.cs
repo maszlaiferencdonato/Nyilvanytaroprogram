@@ -72,6 +72,7 @@ class Program
                     Szures();
                     break;
                 case "5":
+                    FajlbeMentes();
                     Console.WriteLine("  Sikeres mentés!");
                     Console.WriteLine("  Nyomjon egy gombot a továbblépéshez...");
                     Console.ReadKey();
@@ -276,7 +277,25 @@ class Program
         }
 
     }
+    static void FajlbaMentes()
+    {
+        try
+        {
+            List<string> sorok = new List<string>();
+            foreach (var f in moziMusor)    
+            {
+                sorok.Add($"{f.Cim};{f.Mufaj};{f.Hossz};{f.Korhatar}");
+            }
+            File.WriteAllLines("filmek.txt", sorok);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Hiba a mentés során: " + ex.Message);
+        }
+    }
+    
 }
+
 
 
 
