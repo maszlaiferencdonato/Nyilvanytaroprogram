@@ -1,7 +1,7 @@
-﻿
+
 using System;
 using System.Collections.Generic;
-using System.IO
+using System.IO;
 public class Film
 {
     public string Cim { get; set; }
@@ -42,8 +42,8 @@ class Program
                 "Új film felvétele",
                 "Film törlése",
                 "Filmek szűrése",
-                "Mentés és Kilépés"
-                "Film modositasa"
+                "Mentés és Kilépés",
+                "Film módositasa"
             };
 
             for (int i = 0; i < menu.Length; i++)
@@ -81,9 +81,9 @@ class Program
                     kilepes = true;
                     break;
                 case "6":
-                     FilmModositasa();
-                     FajlbaMentes();
-                     break;
+                    FilmModositasa();
+                    FajlbaMentes();
+                    break;
                 default:
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("  Érvénytelen menüpont!");
@@ -111,8 +111,19 @@ class Program
         Console.WriteLine("╚═══════════════════════════════════════════════════╝");
         Console.ResetColor();
 
-        Console.Write("  Film címe: ");
-        string cim = Console.ReadLine();
+        string cim = "";
+        while (string.IsNullOrWhiteSpace(cim))
+        {
+            Console.Write("  Film címe: ");
+            cim = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(cim))
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("  Hiba: A cím nem lehet üres!");
+                Console.ResetColor();
+            }
+        }
 
         string mufaj = MufajValaszto();
 
@@ -157,6 +168,7 @@ class Program
     }
     static void MufajStatisztika()
     {
+        ujMufaj.Clear();
         Console.WriteLine("\n  Műfajok szerinti statisztika:");
 
         foreach (var film in moziMusor)
@@ -191,6 +203,7 @@ class Program
         Console.WriteLine("║                  Filmek listája                   ║");
         Console.WriteLine("╚═══════════════════════════════════════════════════╝");
         Console.ResetColor();
+        moziMusor.Sort((x, y) => string.Compare(x.Cim, y.Cim));
 
         if (moziMusor.Count == 0)
         {
@@ -282,10 +295,11 @@ class Program
                 {
                     Console.WriteLine($"  - {f.Cim} ({f.Korhatar}+)");
                 }
-        
+
             }
-                Visszalepes();
+            Visszalepes();
         }
+
         else
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -298,7 +312,7 @@ class Program
         try
         {
             List<string> sorok = new List<string>();
-            foreach (var f in moziMusor)    
+            foreach (var f in moziMusor)
             {
                 sorok.Add($"{f.Cim};{f.Mufaj};{f.Hossz};{f.Korhatar}");
             }
@@ -316,7 +330,7 @@ class Program
             if (File.Exists("filmek.txt"))
             {
                 string[] sorok = File.ReadAllLines("filmek.txt");
-                moziMusor.Clear();
+                moziMusor.Clear(); 
                 foreach (var sor in sorok)
                 {
                     if (!string.IsNullOrWhiteSpace(sor))
@@ -329,8 +343,9 @@ class Program
         }
         catch (Exception ex)
         {
+
             Console.WriteLine("Hiba az adatok betöltésekor: " + ex.Message);
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(2000); 
         }
     }
     static void FilmModositasa()
@@ -342,30 +357,23 @@ class Program
             Visszalepes();
             return;
         }
-    
+
         for (int i = 0; i < moziMusor.Count; i++)
         {
             Console.WriteLine($"  [{i + 1}] {moziMusor[i].Cim}");
         }
-    
+
         int index = BeolvasSzamot("\n  Melyik sorszámút módosítsuk? ", 1, moziMusor.Count) - 1;
-    
+
         Console.Write("  Új cím: ");
         moziMusor[index].Cim = Console.ReadLine();
-    
+
         moziMusor[index].Korhatar = BeolvasSzamot("  Új korhatár: ", 0, 18);
-    
+
         Console.WriteLine("\n  Sikeres módosítás!");
         Visszalepes();
     }
-    
 }
-
-
-
-
-
-
 
 
 
