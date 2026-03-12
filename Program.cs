@@ -274,7 +274,17 @@ class Program
             MufajStatisztika();
         else if (valasztas == "2")
         {
-
+            int kor = BeolvasSzamot("  Maximum korhatár: ", 0, 18);
+            Console.WriteLine($"\n  Filmek {kor} éves korig:");
+            foreach (var f in moziMusor)
+            {
+                if (f.Korhatar <= kor)
+                {
+                    Console.WriteLine($"  - {f.Cim} ({f.Korhatar}+)");
+                }
+        
+            }
+                Visszalepes();
         }
         else
         {
@@ -350,6 +360,7 @@ class Program
     }
     
 }
+
 
 
 
