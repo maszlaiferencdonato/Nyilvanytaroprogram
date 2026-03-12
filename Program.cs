@@ -43,6 +43,7 @@ class Program
                 "Film törlése",
                 "Filmek szűrése",
                 "Mentés és Kilépés"
+                "Film modositasa"
             };
 
             for (int i = 0; i < menu.Length; i++)
@@ -79,6 +80,10 @@ class Program
                     Console.ReadKey();
                     kilepes = true;
                     break;
+                case "6":
+                     FilmModositasa();
+                     FajlbaMentes();
+                     break;
                 default:
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("  Érvénytelen menüpont!");
@@ -318,8 +323,34 @@ class Program
             System.Threading.Thread.Sleep(2000);
         }
     }
+    static void FilmModositasa()
+    {
+        Console.Clear();
+        if (moziMusor.Count == 0)
+        {
+            Console.WriteLine("  A lista üres.");
+            Visszalepes();
+            return;
+        }
+    
+        for (int i = 0; i < moziMusor.Count; i++)
+        {
+            Console.WriteLine($"  [{i + 1}] {moziMusor[i].Cim}");
+        }
+    
+        int index = BeolvasSzamot("\n  Melyik sorszámút módosítsuk? ", 1, moziMusor.Count) - 1;
+    
+        Console.Write("  Új cím: ");
+        moziMusor[index].Cim = Console.ReadLine();
+    
+        moziMusor[index].Korhatar = BeolvasSzamot("  Új korhatár: ", 0, 18);
+    
+        Console.WriteLine("\n  Sikeres módosítás!");
+        Visszalepes();
+    }
     
 }
+
 
 
 
