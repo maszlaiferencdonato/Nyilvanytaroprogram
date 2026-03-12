@@ -293,8 +293,33 @@ class Program
             Console.WriteLine("Hiba a mentés során: " + ex.Message);
         }
     }
+    static void Betoltes()
+    {
+        try
+        {
+            if (File.Exists("filmek.txt"))
+            {
+                string[] sorok = File.ReadAllLines("filmek.txt");
+                moziMusor.Clear();
+                foreach (var sor in sorok)
+                {
+                    if (!string.IsNullOrWhiteSpace(sor))
+                    {
+                        string[] adatok = sor.Split(';');
+                        moziMusor.Add(new Film(adatok[0], adatok[1], int.Parse(adatok[2]), int.Parse(adatok[3])));
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Hiba az adatok betöltésekor: " + ex.Message);
+            System.Threading.Thread.Sleep(2000);
+        }
+    }
     
 }
+
 
 
 
