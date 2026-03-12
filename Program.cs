@@ -19,6 +19,7 @@ class Program
 {
     static List<Film> moziMusor = new List<Film>();
     static string[] mufajok = { "Akció", "Vígjáték", "Dráma", "Sci-fi", "Horror", "Kaland", "Animáció", "Thriller" };
+    static List<string> ujMufaj = new List<string>();
     static void Main(string[] args)
     {
         bool kilepes = false;
@@ -75,16 +76,17 @@ class Program
                 default:
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("  Érvénytelen menüpont!");
-                    Kilepes();
+                    Visszalepes();
                     break;
             }
         }
     }
 
-    static void Kilepes()
+    static void Visszalepes()
     {
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("  Nyomjon meg egy billentyűt a kilépéshez");
+        Console.WriteLine("\n  Nyomjon meg egy billentyűt a visszalépéshez...");
+        Console.ResetColor();
         Console.ReadKey();
         Console.Clear();
     }
@@ -107,10 +109,7 @@ class Program
         int korhatar = BeolvasSzamot("  Korhatár: ", 0, 18);
 
         lista.Add(new Film(cim, mufaj, hossz, korhatar));
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("  Sikeresen mentve! Nyomj egy gombot a menübe lépéshez");
-        Console.ReadKey();
-        Console.Clear();
+        Visszalepes();
     }
     static int BeolvasSzamot(string uzenet, int min, int max)
     {
@@ -145,6 +144,32 @@ class Program
         int valasztas = BeolvasSzamot("  Választott műfaj sorszáma: ", 1, mufajok.Length);
         return mufajok[valasztas - 1];
     }
+    static void MufajStatisztika()
+    {
+        Console.WriteLine("\n  Műfajok szerinti statisztika:");
+
+        foreach (var film in moziMusor)
+        {
+            if (!ujMufaj.Contains(film.Mufaj))
+            {
+                ujMufaj.Add(film.Mufaj);
+            }
+        }
+
+        
+        foreach (string mufaj in ujMufaj)
+        {
+            int darab = 0;
+            foreach (var film in moziMusor)
+            {
+                if (film.Mufaj == mufaj)
+                {
+                    darab++;
+                }
+            }
+            Console.WriteLine($"  - {mufaj}: {darab} db");
+        }Visszalepes();
+    }
 
     static void Listazas()
     {
@@ -166,11 +191,8 @@ class Program
                 Console.WriteLine($"  {i + 1}. | Cím: {moziMusor[i].Cim} | Műfaj: {moziMusor[i].Mufaj} | {moziMusor[i].Hossz} perc | Korhatár: {moziMusor[i].Korhatar}+");
             }
         }
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("  Nyomj egy gombot a menübe lépéshez");
-        Console.ReadKey();
-        Console.Clear();
-        
+        Visszalepes();
+
     }
 
     static void FilmTorlese()
@@ -209,27 +231,47 @@ class Program
             Console.WriteLine($"\n  '{torlendoCim}' sikeresen törölve!");
         }
 
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("\n  Nyomj egy gombot a menübe lépéshez");
-        Console.ReadKey();
+        Visszalepes();
+    }
+
+    static void Szures()
+    {
         Console.Clear();
-    }
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("╔═══════════════════════════════════════════════════╗");
+        Console.WriteLine("║                  Filmek szűrése                   ║");
+        Console.WriteLine("╚═══════════════════════════════════════════════════╝");
+        Console.ResetColor();
 
-        static void Szures()
+
+        if (moziMusor.Count == 0)
         {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("╔═══════════════════════════════════════════════════╗");
-            Console.WriteLine("║                  Filmek szűrése                   ║");
-            Console.WriteLine("╚═══════════════════════════════════════════════════╝");
-            Console.ResetColor();
+            Console.WriteLine("  Nincs adat a statisztikákhoz.");
+            Visszalepes();
+            return;
+        }
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("  Nyomj egy gombot a menübe lépéshez");
-            Console.ReadKey();
-            Console.Clear();
-        }   
+        Console.WriteLine("  [1] Műfaj szerinti csoportosítás");
+        Console.WriteLine("  [2] Korhatár szerinti csoportosítás");
+        Console.WriteLine("  " + new string('-', 49));
+
+        string valasztas = BeolvasSzamot("  Válasszon opciót: ", 1, 2).ToString();
+
+        if (valasztas == "1")
+            MufajStatisztika();
+        else if (valasztas == "2")
+        {
+     
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("  Érvénytelen opció!");
+        }
+
     }
+}
 
-    
+
+
 
