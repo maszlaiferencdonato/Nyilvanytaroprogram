@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 public class Film
 {
@@ -63,9 +64,11 @@ class Program
                 case "2":
                     UjFilmHozzaadasa(moziMusor);
                     break;
-                case "3":FilmTorlese();
+                case "3":
+                    FilmTorlese();
                     break;
-                case "4": Szures();
+                case "4":
+                    Szures();
                     break;
                 case "5":
                     Console.WriteLine("  Sikeres mentés!");
@@ -119,7 +122,7 @@ class Program
             Console.Write(uzenet);
             string input = Console.ReadLine();
 
-            
+
             if (int.TryParse(input, out vizsgaltSzam) && vizsgaltSzam >= min && vizsgaltSzam <= max)
             {
                 return vizsgaltSzam;
@@ -156,7 +159,7 @@ class Program
             }
         }
 
-        
+
         foreach (string mufaj in ujMufaj)
         {
             int darab = 0;
@@ -168,7 +171,8 @@ class Program
                 }
             }
             Console.WriteLine($"  - {mufaj}: {darab} db");
-        }Visszalepes();
+        }
+        Visszalepes();
     }
 
     static void Listazas()
@@ -209,7 +213,8 @@ class Program
             Console.WriteLine("  Nincs törölhető film.");
         }
         else
-        {   Console.WriteLine("  Törölhető filmek:");
+        {
+            Console.WriteLine("  Törölhető filmek:");
             Console.WriteLine("");
             for (int i = 0; i < moziMusor.Count; i++)
             {
@@ -261,7 +266,7 @@ class Program
             MufajStatisztika();
         else if (valasztas == "2")
         {
-     
+
         }
         else
         {
